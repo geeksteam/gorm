@@ -24,12 +24,12 @@ var (
 func Run(routine Routine) {
 	defer cleanHistory()
 
+	mutex.Lock()
+
+	routineStor = append(routineStor, routine)
+	mutex.Unlock()
+
 	go func() {
-		mutex.Lock()
-
-		routineStor = append(routineStor, routine)
-		mutex.Unlock()
-
 		defer func() {
 			if r := recover(); r != nil {
 				switch err := r.(type) {
