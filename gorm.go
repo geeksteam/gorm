@@ -22,7 +22,7 @@ var (
 )
 
 func Run(routine Routine) {
-	cleanHistory()
+	defer cleanHistory()
 
 	go func() {
 		mutex.Lock()
